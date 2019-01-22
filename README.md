@@ -22,6 +22,8 @@ var config = {
 
 ## Configuration options
 
+Todo: Add full list of options
+
 | Option           | Description
 |----------------- |-----------
 | `option1`        | *Required* DESCRIPTION HERE
