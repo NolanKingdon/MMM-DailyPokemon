@@ -1,0 +1,30 @@
+/*
+ *
+ * MMM-DailyPokemon
+ *
+ * 
+ * MIT Licensed.
+ *
+ * Custom here your css module
+ *
+ */
+
+#poke-header {
+	border-bottom: 1px solid white;
+	color: #666;
+}
+
+#poke-pic {
+	width: 100px;
+	height: auto;
+}
+
+#poke-pic-grayscale {
+	width: 200px;
+	height: auto;
+	filter: grayscale(100%);
+}
+
+#poke-types {
+	text-decoration: none;
+}
