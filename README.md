@@ -11,16 +11,16 @@ To use this module, add the following configuration block to the modules array i
 var config = {
     modules: [
         {
-			module: "MMM-DailyPokemon",
-			position: "top_center",
-			config: {
-				updateInterval: 600000,
-				minPoke: 4, //I don't like Bulbasaur, or its evolutions!
-				maxPoke: 151,
-				grayscale: true,
-				showType: true,                
-			}
-		}
+            module: "MMM-DailyPokemon",
+            position: "top_center",
+            config: {
+                updateInterval: 600000,
+                minPoke: 4, //I don't like Bulbasaur, or its evolutions!
+                maxPoke: 151,
+                grayscale: true,
+                showType: true,                
+            }
+        }
     ]
 }
 ```
