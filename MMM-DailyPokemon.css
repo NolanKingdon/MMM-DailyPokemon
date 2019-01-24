@@ -9,9 +9,15 @@
  *
  */
 
+#poke-wrapper {
+	/*border: 1px solid blue;*/
+}
+
 #poke-header {
 	border-bottom: 1px solid white;
 	color: #666;
+	/*border: 1px solid blue;*/
+
 }
 
 #poke-pic {
@@ -20,11 +26,32 @@
 }
 
 #poke-pic-grayscale {
+	/*border: 1px solid blue;*/
+
 	width: 200px;
 	height: auto;
 	filter: grayscale(100%);
 }
 
+#poke-pic-grayscale-type {
+	width: 50px;
+	height: auto;
+	filter: grayscale(100%);
+	/*border: 1px solid yellow;*/
+
+}
+
 #poke-types {
+	/*border: 1px solid blue;*/
+	padding: 0px;
+}
+
+#poke-types p{
+	/*border: 1px solid green;*/
+
+
 	text-decoration: none;
+	display: inline-block;
+	margin-right: 3px;
+	padding: 0px;
 }
