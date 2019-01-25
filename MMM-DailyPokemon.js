@@ -13,7 +13,8 @@ Module.register("MMM-DailyPokemon", {
 		grayscale: true,//Turns pokemon image and type images gray to match magic mirror styles
 		minPoke: 1, //Default to all pokemon
 		maxPoke: 802,//Highest number - 802 pokemon currently exist
-		showType: true //Shows type icons below pokemon's image
+		showType: true, //Shows type icons below pokemon's image
+		stats: true,
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -33,7 +34,7 @@ Module.register("MMM-DailyPokemon", {
 		header.innerHTML = "Daily Pokemon";
 		header.id = "poke-header";
 		
-		wrapper.appendChild(header);
+		//wrapper.appendChild(header);
 		this.getData(wrapper);//Sending the request
 		return wrapper;
 	},
@@ -59,11 +60,12 @@ Module.register("MMM-DailyPokemon", {
 	},
 	
 	createContent: function(data, wrapper) { //Creates the elements for display
-
+		var pokeWrapper = document.createElement("div");
 		var pokeName = document.createElement("p");
 		//TODO - maybe add an option to get rid of Pokedex #
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
-		wrapper.appendChild(pokeName);
+		pokeName.id = "poke-name";
+		pokeWrapper.appendChild(pokeName);
 		
 		var pokePic = document.createElement("img");
 		pokePic.src = data.sprites.front_default;
@@ -71,7 +73,7 @@ Module.register("MMM-DailyPokemon", {
 		if(this.config.grayscale) { 
 			pokePic.id = "poke-pic-grayscale"; 
 		}
-		wrapper.appendChild(pokePic);
+		pokeWrapper.appendChild(pokePic);
 		
 		var types = document.createElement("div");
 		types.id = "poke-types";
@@ -95,9 +97,26 @@ Module.register("MMM-DailyPokemon", {
 			type2.appendChild(type2Img);
 			types.appendChild(type2);
 		}
-		wrapper.appendChild(types);
+		pokeWrapper.appendChild(types);
+		
 		
 		//TODO - Add in a stats table
+		if(this.config.stats){
+			var statTable = document.createElement("table");
+			for(var i = 0; i<6; i++){
+				var tr = document.createElement("tr");
+				var tdName = document.createElement("td");
+				tdName.innerHTML = data.stats[i].stat.name;
+				var tdStat = document.createElement("td");
+				tdStat.innerHTML = data.stats[i].base_stat;
+				tr.appendChild(tdName);
+				tr.appendChild(tdStat);
+				statTable.appendChild(tr);
+				pokeWrapper.appendChild(statTable);
+			}
+		}
+		
+		wrapper.appendChild(pokeWrapper);
 	},
 	
 	getStyles: function() {
