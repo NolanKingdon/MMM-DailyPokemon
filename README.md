@@ -4,6 +4,8 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 MMM-DailyPokemon provides a unique Pokemon each day, as well as information about that Pokemon.
 
+![Demo Image](https://github.com/NolanKingdon/MMM-DailyPokemon/blob/master/Images/demoimage.png)
+
 ## Using the module
 
 To use this module, add the following configuration block to the modules array in the `config/config.js` file:
