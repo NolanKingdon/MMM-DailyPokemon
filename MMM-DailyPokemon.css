@@ -14,9 +14,22 @@
 	bottom: 50px;
 }
 
+#flex-wrapper div {
+	width: 100%;
+}
+
+#flex-wrapper {
+	display: flex;
+	align-content: center;
+}
+
 #poke-header, #poke-name {
 	border-bottom: 1px solid white;
 	color: white;
+}
+
+#poke-name {
+	text-align: center;
 }
 
 #poke-pic {
@@ -49,4 +62,23 @@
 	display: inline-block;
 	margin-right: 3px;
 	padding: 0px;
+}
+
+#poke-wrapper table {
+	line-height: 1em;
+}
+
+#poke-wrapper #poke-info{
+	text-align: center;
+}
+#poke-wrapper table tr td {
+	font-size: 12pt;
+	padding: 0px;
+	text-transform: capitalize;
+}
+
+#poke-table-name {
+	color: DDD;
+	font-weight: 800;
+	text-align: left;
 }

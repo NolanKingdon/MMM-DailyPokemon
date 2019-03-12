@@ -30,6 +30,11 @@ Module.register("MMM-DailyPokemon", {
 	getDom: function() { //Creating initial div
 		var wrapper = document.createElement("div");
 		wrapper.id = "poke-wrapper";
+		if(this.config.stats === true){
+			wrapper.style.width = "400px";
+		} else {
+			wrapper.style.width = "200px";
+		}
 		var header = document.createElement("h4");
 		header.innerHTML = "Daily Pokemon";
 		header.id = "poke-header";
@@ -61,11 +66,14 @@ Module.register("MMM-DailyPokemon", {
 	
 	createContent: function(data, wrapper) { //Creates the elements for display
 		var pokeWrapper = document.createElement("div");
+		pokeWrapper.id = "poke-info";
+		var flexWrapper = document.createElement("div");
+		flexWrapper.id = "flex-wrapper";
 		var pokeName = document.createElement("p");
 		//TODO - maybe add an option to get rid of Pokedex #
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
 		pokeName.id = "poke-name";
-		pokeWrapper.appendChild(pokeName);
+		wrapper.appendChild(pokeName);
 		
 		var pokePic = document.createElement("img");
 		pokePic.src = data.sprites.front_default;
@@ -98,8 +106,9 @@ Module.register("MMM-DailyPokemon", {
 			types.appendChild(type2);
 		}
 		pokeWrapper.appendChild(types);
+		flexWrapper.appendChild(pokeWrapper);
 		
-		
+		statWrapper = document.createElement("div");
 		//TODO - Add in a stats table
 		if(this.config.stats){
 			var statTable = document.createElement("table");
@@ -107,16 +116,18 @@ Module.register("MMM-DailyPokemon", {
 				var tr = document.createElement("tr");
 				var tdName = document.createElement("td");
 				tdName.innerHTML = data.stats[i].stat.name;
+				tdName.id = "poke-table-name";
 				var tdStat = document.createElement("td");
 				tdStat.innerHTML = data.stats[i].base_stat;
 				tr.appendChild(tdName);
 				tr.appendChild(tdStat);
 				statTable.appendChild(tr);
-				pokeWrapper.appendChild(statTable);
+				statWrapper.appendChild(statTable);
 			}
+			flexWrapper.appendChild(statWrapper);
 		}
 		
-		wrapper.appendChild(pokeWrapper);
+		wrapper.appendChild(flexWrapper);
 	},
 	
 	getStyles: function() {
