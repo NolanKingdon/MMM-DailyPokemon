@@ -26,7 +26,7 @@ var config = {
             position: "top_center",
             config: {
                 updateInterval: 600000,
-                minPoke: 4, //I don't like Bulbasaur, or its evolutions!
+                minPoke: 4,
                 maxPoke: 151,
                 grayscale: true,
                 showType: true,                
