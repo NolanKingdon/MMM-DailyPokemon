@@ -4,9 +4,18 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 MMM-DailyPokemon provides a unique Pokemon each day, as well as information about that Pokemon.
 
+Built Using [PokeAPI](https://pokeapi.co/)
+
 ![Demo Image](https://github.com/NolanKingdon/MMM-DailyPokemon/blob/master/Images/demoimage.png)
 
 ## Using the module
+
+To install, clone this repo into `~/MagicMirror/modules` directory. Then move in the folder and install required libraries
+```
+git clone https://github.com/NolanKingdon/MMM-DailyPokemon
+cd MMM-quote-of-the-day
+npm install
+```
 
 To use this module, add the following configuration block to the modules array in the `config/config.js` file:
 ```js
