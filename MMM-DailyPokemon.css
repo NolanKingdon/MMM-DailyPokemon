@@ -11,7 +11,8 @@
 
 #poke-wrapper {
 	position: relative;
-	bottom: 50px;
+	/*bottom: 30px;*/
+	top: 0px;
 }
 
 #flex-wrapper div {
@@ -26,6 +27,7 @@
 #poke-header, #poke-name {
 	border-bottom: 1px solid white;
 	color: white;
+
 }
 
 #poke-name {
