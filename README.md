@@ -13,7 +13,7 @@ Built Using [PokeAPI](https://pokeapi.co/)
 To install, clone this repo into `~/MagicMirror/modules` directory. Then move in the folder and install required libraries
 ```
 git clone https://github.com/NolanKingdon/MMM-DailyPokemon
-cd MMM-quote-of-the-day
+cd MMM-DailyPokemon
 npm install
 ```
 
