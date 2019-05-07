@@ -15,6 +15,7 @@ Module.register("MMM-DailyPokemon", {
 		maxPoke: 802,//Highest number - 802 pokemon currently exist
 		showType: true, //Shows type icons below pokemon's image
 		stats: true,
+		language: "en"
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -25,6 +26,7 @@ Module.register("MMM-DailyPokemon", {
 		setInterval(function() {
 			self.updateDom();
 		}, this.config.updateInterval);
+		console.log(this.config);
 	},
 
 	getDom: function() { //Creating initial div
@@ -49,12 +51,40 @@ Module.register("MMM-DailyPokemon", {
 		var pokeNumber = Math.round(Math.random()*(this.config.maxPoke - this.config.minPoke) + this.config.minPoke);
 		var apiURL = "https://pokeapi.co/api/v2/pokemon/" + pokeNumber + "/";
 		var httpRequest = new XMLHttpRequest();
+
+		var languageApiURL = "https://pokeapi.co/api/v2/pokemon-species/" + pokeNumber + "/";
+		var languageHttpRequest = new XMLHttpRequest();
+		var translatedName;
+		var languageChosen = this.config.language;
+
+		languageHttpRequest.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				var response = JSON.parse(this.responseText);
+				if(languageChosen){
+					response.names.forEach(nameObject => {
+						if(nameObject.language.name == languageChosen){
+							translatedName = nameObject.name;
+							var pokeName = document.getElementById("poke-name");
+							pokeName.innerHTML = translatedName.charAt(0).toUpperCase() + translatedName.slice(1) + " - #" + pokeNumber
+						}
+					});
+				}
+			}
+			 else {
+				 return "Loading...";
+			 }
+
+		}
 		
 		httpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {
 				console.log(JSON.parse(this.responseText));
 				var responsePokemon = JSON.parse(this.responseText);
-				Log.log(responsePokemon.name);
+				Log.log(responsePokemon);
+				languageHttpRequest.open("GET", languageApiURL, true);
+				languageHttpRequest.send();
+				
+
 				self.createContent(responsePokemon, wrapper);
 			} else {
 				return "Loading...";
