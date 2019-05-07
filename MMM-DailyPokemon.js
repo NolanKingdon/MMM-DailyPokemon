@@ -15,7 +15,8 @@ Module.register("MMM-DailyPokemon", {
 		maxPoke: 802,//Highest number - 802 pokemon currently exist
 		showType: true, //Shows type icons below pokemon's image
 		stats: true,
-		language: "en"
+		language: "en", 
+		genera: true
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -60,6 +61,18 @@ Module.register("MMM-DailyPokemon", {
 		languageHttpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {
 				var response = JSON.parse(this.responseText);
+				Log.log(response);
+
+				if(self.config.genera){
+					response.genera.forEach(genera => {
+						if(genera.language.name == languageChosen){
+							var pokeSubName = document.getElementById("poke-subname");
+							pokeSubName.innerHTML = genera.genus
+						}
+					});
+				}
+
+				// Get Translated Name
 				if(languageChosen){
 					response.names.forEach(nameObject => {
 						if(nameObject.language.name == languageChosen){
@@ -104,6 +117,14 @@ Module.register("MMM-DailyPokemon", {
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
 		pokeName.id = "poke-name";
 		wrapper.appendChild(pokeName);
+
+		if(this.config.genera){
+			var pokeSubName = document.createElement("p");
+			//TODO - maybe add an option to get rid of Pokedex #
+			pokeSubName.innerHTML = "Pokémon Alan";
+			pokeSubName.id = "poke-subname";
+			wrapper.appendChild(pokeSubName);
+		}
 		
 		var pokePic = document.createElement("img");
 		pokePic.src = data.sprites.front_default;
