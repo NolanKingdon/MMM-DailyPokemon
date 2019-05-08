@@ -77,3 +77,13 @@ var config = {
     ]
 }
 ```
+
+## TODO
+These are the things i'd like to add in the future
+
+- Description of the Pokemon (Don't know wich rule i'm gonna use for it, the description from the latest game ? The first game the Pokemon appeared ? ), and option to hide it. 
+- Modify fonts size
+- Translate "type cards"
+- Maybe add generation ? Capture rate ? Egg group ? Don't know at all ! 
+
+If you got ideas, or corrections, let me know. I'm also not a NodeJS senior, so maybe my code can be better than it currently is, so let me know about it too ! 
