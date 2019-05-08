@@ -167,58 +167,187 @@ Module.register("MMM-DailyPokemon", {
 		if(this.config.stats){
 			var statTable = document.createElement("table");
 			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'pokegb'";
+
+
+			// We add HP Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
 			for(var i = 0; i<6; i++){
-				var tr = document.createElement("tr");
-
-				// Fetching Stat Name
-				var tdName = document.createElement("td");
-				tdName.id = "poke-table-name";
-				
-				if(this.config.gbaMode){
-					Log.log(data.stats[i].stat)
-					tdName.innerHTML = data.stats[i].stat.name;
-
+				if(data.stats[i].stat.name == "hp"){
 					if(this.config.language == "fr"){
-						if(data.stats[i].stat.name == "attack") tdName.innerHTML = "ATTAQUE";
-						if(data.stats[i].stat.name == "defense") tdName.innerHTML = "DEFENSE";
-						if(data.stats[i].stat.name == "special-attack") tdName.innerHTML = "ATQ.SPE.";
-						if(data.stats[i].stat.name == "special-defense") tdName.innerHTML = "DEF.SPE.";
-						if(data.stats[i].stat.name == "speed") tdName.innerHTML = "VITESSE";
-						if(data.stats[i].stat.name == "hp") tdName.innerHTML = "PV";
+						tdName.innerHTML = "PV";
 					}
 					else{
-						if(data.stats[i].stat.name == "attack") tdName.innerHTML = "ATTACK";
-						if(data.stats[i].stat.name == "defense") tdName.innerHTML = "DEFENSE";
-						if(data.stats[i].stat.name == "special-attack") tdName.innerHTML = "SPE.ATK.";
-						if(data.stats[i].stat.name == "special-defense") tdName.innerHTML = "SP.DEF..";
-						if(data.stats[i].stat.name == "speed") tdName.innerHTML = "SPEED";
-						if(data.stats[i].stat.name == "hp") tdName.innerHTML = "HP";
+						tdName.innerHTML = "HP";
 					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
 				}
-				else{
-					if(this.config.language == "fr"){
-						if(data.stats[i].stat.name == "attack") tdName.innerHTML = "Attaque";
-						if(data.stats[i].stat.name == "defense") tdName.innerHTML = "Défense";
-						if(data.stats[i].stat.name == "special-attack") tdName.innerHTML = "Attaque Spéciale";
-						if(data.stats[i].stat.name == "special-defense") tdName.innerHTML = "Défense Spéciale";
-						if(data.stats[i].stat.name == "speed") tdName.innerHTML = "Vitesse";
-						if(data.stats[i].stat.name == "hp") tdName.innerHTML = "PV";
-					}
-				}
-
-				// Fetching Stat
-				var tdStat = document.createElement("td");
-				tdStat.innerHTML = data.stats[i].base_stat;
-
-				// We append the table cells
-				tr.appendChild(tdName);
-				tr.appendChild(tdStat);
-				statTable.appendChild(tr);
-				statWrapper.appendChild(statTable);
 			}
+
+			// We add Attack Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "attack"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "ATTAQUE";
+						}
+						else{
+							tdName.innerHTML = "ATTACK";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Attaque";
+						}
+						else{
+							tdName.innerHTML = "Attack"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Defense Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "defense"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "DEFENSE";
+						}
+						else{
+							tdName.innerHTML = "DEFENSE";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Défense";
+						}
+						else{
+							tdName.innerHTML = "Defense"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Special Attack Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "special-attack"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "ATQ.SPE.";
+						}
+						else{
+							tdName.innerHTML = "ATK.SPE.";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Attaque Spéciale";
+						}
+						else{
+							tdName.innerHTML = "Special Attack"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Special Defense Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "special-defense"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "DEF.SPE.";
+						}
+						else{
+							tdName.innerHTML = "DEF.SPE.";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Défense Spéciale";
+						}
+						else{
+							tdName.innerHTML = "Special Defense"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Speed Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "speed"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "VITESSE";
+						}
+						else{
+							tdName.innerHTML = "SPEED";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Vitesse";
+						}
+						else{
+							tdName.innerHTML = "Speed"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			statWrapper.appendChild(statTable);
 			flexWrapper.appendChild(statWrapper);
 		}
-		
 		wrapper.appendChild(flexWrapper);
 	},
 	
