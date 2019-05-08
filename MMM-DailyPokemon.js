@@ -16,7 +16,8 @@ Module.register("MMM-DailyPokemon", {
 		showType: true, //Shows type icons below pokemon's image
 		stats: true,
 		language: "en", 
-		genera: true
+		genera: true, 
+		gbaMode: true
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -116,13 +117,15 @@ Module.register("MMM-DailyPokemon", {
 		//TODO - maybe add an option to get rid of Pokedex #
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
 		pokeName.id = "poke-name";
+		
 		wrapper.appendChild(pokeName);
 
 		if(this.config.genera){
 			var pokeSubName = document.createElement("p");
 			//TODO - maybe add an option to get rid of Pokedex #
-			pokeSubName.innerHTML = "Pokémon Alan";
 			pokeSubName.id = "poke-subname";
+			if(this.config.gbaMode) pokeSubName.style.cssText = "font-family: 'pokegb'";
+
 			wrapper.appendChild(pokeSubName);
 		}
 		
@@ -163,13 +166,51 @@ Module.register("MMM-DailyPokemon", {
 		//TODO - Add in a stats table
 		if(this.config.stats){
 			var statTable = document.createElement("table");
+			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'pokegb'";
 			for(var i = 0; i<6; i++){
 				var tr = document.createElement("tr");
+
+				// Fetching Stat Name
 				var tdName = document.createElement("td");
-				tdName.innerHTML = data.stats[i].stat.name;
 				tdName.id = "poke-table-name";
+				
+				if(this.config.gbaMode){
+					Log.log(data.stats[i].stat)
+					tdName.innerHTML = data.stats[i].stat.name;
+
+					if(this.config.language == "fr"){
+						if(data.stats[i].stat.name == "attack") tdName.innerHTML = "ATTAQUE";
+						if(data.stats[i].stat.name == "defense") tdName.innerHTML = "DEFENSE";
+						if(data.stats[i].stat.name == "special-attack") tdName.innerHTML = "ATQ.SPE.";
+						if(data.stats[i].stat.name == "special-defense") tdName.innerHTML = "DEF.SPE.";
+						if(data.stats[i].stat.name == "speed") tdName.innerHTML = "VITESSE";
+						if(data.stats[i].stat.name == "hp") tdName.innerHTML = "PV";
+					}
+					else{
+						if(data.stats[i].stat.name == "attack") tdName.innerHTML = "ATTACK";
+						if(data.stats[i].stat.name == "defense") tdName.innerHTML = "DEFENSE";
+						if(data.stats[i].stat.name == "special-attack") tdName.innerHTML = "SPE.ATK.";
+						if(data.stats[i].stat.name == "special-defense") tdName.innerHTML = "SP.DEF..";
+						if(data.stats[i].stat.name == "speed") tdName.innerHTML = "SPEED";
+						if(data.stats[i].stat.name == "hp") tdName.innerHTML = "HP";
+					}
+				}
+				else{
+					if(this.config.language == "fr"){
+						if(data.stats[i].stat.name == "attack") tdName.innerHTML = "Attaque";
+						if(data.stats[i].stat.name == "defense") tdName.innerHTML = "Défense";
+						if(data.stats[i].stat.name == "special-attack") tdName.innerHTML = "Attaque Spéciale";
+						if(data.stats[i].stat.name == "special-defense") tdName.innerHTML = "Défense Spéciale";
+						if(data.stats[i].stat.name == "speed") tdName.innerHTML = "Vitesse";
+						if(data.stats[i].stat.name == "hp") tdName.innerHTML = "PV";
+					}
+				}
+
+				// Fetching Stat
 				var tdStat = document.createElement("td");
 				tdStat.innerHTML = data.stats[i].base_stat;
+
+				// We append the table cells
 				tr.appendChild(tdName);
 				tr.appendChild(tdStat);
 				statTable.appendChild(tr);
