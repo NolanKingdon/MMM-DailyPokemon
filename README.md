@@ -30,7 +30,9 @@ var config = {
                 maxPoke: 151,
                 grayscale: true,
                 showType: true,
-                language: en             
+                language: en, 
+				genera: true, 
+				gbaMode: true            
             }
         }
     ]
@@ -60,6 +62,8 @@ var config = {
 `ko` - Korean <br>
 `roomaji` - Japanese (In Roomaji, latin alphabet) <br>
 `ja-Hrkt` - Czech <br/> <br/>
+| `genera`          | *Optional* Displays the genera (One or two words to describe the Pokemon) from the official Pokedex
+| `gbaMode`         | *Optional* Displays text like in GBA Pokedex (Old-school font and old labels)
 
 ## Default Configuration
 
@@ -76,7 +80,9 @@ var config = {
                 maxPoke: 802,//Highest number - 802 pokemon currently exist
                 showType: true, //Shows type icons below pokemon's image
                 stats: true,  
-                language: en           
+                language: en,
+				genera: true, 
+				gbaMode: true         
             }
         }
     ]
