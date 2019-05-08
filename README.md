@@ -6,13 +6,13 @@ MMM-DailyPokemon provides a unique Pokemon each day, as well as information abou
 
 Built Using [PokeAPI](https://pokeapi.co/)
 
-![Demo Image](https://github.com/NolanKingdon/MMM-DailyPokemon/blob/master/Images/demoimage.png)
+![Demo Image](https://github.com/Tomadelostacos/MMM-DailyPokemon/blob/master/Images/demoimage.png)
 
 ## Using the module
 
 To install, clone this repo into `~/MagicMirror/modules` directory. Then move in the folder and install required libraries
 ```
-git clone https://github.com/NolanKingdon/MMM-DailyPokemon
+git clone https://github.com/Tomadelostacos/MMM-DailyPokemon
 cd MMM-DailyPokemon
 npm install
 ```
@@ -30,7 +30,7 @@ var config = {
                 maxPoke: 151,
                 grayscale: true,
                 showType: true,
-                language: en, 
+                language: "en", 
 				genera: true, 
 				gbaMode: true            
             }
@@ -80,7 +80,7 @@ var config = {
                 maxPoke: 802,//Highest number - 802 pokemon currently exist
                 showType: true, //Shows type icons below pokemon's image
                 stats: true,  
-                language: en,
+                language: "en",
 				genera: true, 
 				gbaMode: true         
             }
