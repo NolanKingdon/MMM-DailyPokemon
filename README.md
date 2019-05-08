@@ -6,7 +6,7 @@ MMM-DailyPokemon provides a unique Pokemon each day, as well as information abou
 
 Built Using [PokeAPI](https://pokeapi.co/)
 
-![Demo Image](https://github.com/Tomadelostacos/MMM-DailyPokemon/blob/master/Images/demo.png)
+![Demo Image](https://github.com/Tomadelostacos/MMM-DailyPokemon/blob/feature/translation/images/demo.png)
 
 ## Using the module
 
