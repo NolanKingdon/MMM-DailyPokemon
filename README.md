@@ -31,8 +31,8 @@ var config = {
                 grayscale: true,
                 showType: true,
                 language: "en",
-				genera: true, 
-				gbaMode: true            
+		genera: true, 
+		gbaMode: true            
             }
         }
     ]
