@@ -14,11 +14,11 @@ Module.register("MMM-DailyPokemon", {
 		minPoke: 1, //Default to all pokemon
 		maxPoke: 802,//Highest number - 802 pokemon currently exist
 		showType: true, //Shows type icons below pokemon's image
-		stats: true,
+		stats: true,  //Displays pokemon stat table
 		language: "en", 
-		genera: true, 
-		gbaMode: true, 
-		nameSize: 32
+		genera: true,  //Sub-description for the pokemon
+		gbaMode: true, //Changes font to GBA style 
+		nameSize: 32 //Changes header size - px
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -29,7 +29,6 @@ Module.register("MMM-DailyPokemon", {
 		setInterval(function() {
 			self.updateDom();
 		}, this.config.updateInterval);
-		console.log(this.config);
 	},
 
 	getDom: function() { //Creating initial div
@@ -119,9 +118,19 @@ Module.register("MMM-DailyPokemon", {
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
 		pokeName.id = "poke-name";
 
-		// Font size modification
+		if(this.config.gbaMode) pokeName.style.fontFamily = "'pokegb'";
+
+		// Font size/style modification
 		if(this.config.nameSize != 32) {
-			pokeName.style.cssText = "font-size: " + this.config.nameSize + "px;";
+			if(this.config.gbaMode){
+				pokeName.style.cssText = "font-size:" + this.config.nameSize + "px; font-family: 'pokegb';";
+			} else {
+				pokeName.style.cssText = "font-size:" + this.config.nameSize + "px;";
+			}
+		} else if(this.config.nameSize == 32) {//Changing default size if gbaMode is enabled without size changes added
+			if(this.config.gbaMode){
+				pokeName.style.cssText = "font-size: 22px; font-family: 'pokegb';";
+			}
 		}
 		
 		wrapper.appendChild(pokeName);
@@ -131,7 +140,6 @@ Module.register("MMM-DailyPokemon", {
 			//TODO - maybe add an option to get rid of Pokedex #
 			pokeSubName.id = "poke-subname";
 			if(this.config.gbaMode) pokeSubName.style.cssText = "font-family: 'pokegb'";
-
 			wrapper.appendChild(pokeSubName);
 		}
 		
