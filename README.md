@@ -12,7 +12,7 @@ Built Using [PokeAPI](https://pokeapi.co/)
 
 To install, clone this repo into `~/MagicMirror/modules` directory. Then move in the folder and install required libraries
 ```
-git clone https://github.com/Tomadelostacos/MMM-DailyPokemon
+git clone https://github.com/NolanKingdon/MMM-DailyPokemon
 cd MMM-DailyPokemon
 npm install
 ```
@@ -31,9 +31,9 @@ var config = {
                 grayscale: true,
                 showType: true,
                 language: "en",
-				genera: true, 
-				gbaMode: true,            
-				nameSize: 26            
+                genera: true, 
+                gbaMode: true,            
+                nameSize: 26            
             }
         }
     ]
@@ -72,9 +72,10 @@ var config = {
                 showType: true, //Shows type icons below pokemon's image
                 stats: true,
                 language: "en",
-				genera: true,
+                genera: true,
                 gbaMode: true, 
                 nameSize: 32         
+
             }
         }
     ]
