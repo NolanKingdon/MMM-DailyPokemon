@@ -9,6 +9,11 @@
  *
  */
 
+@font-face {
+	font-family: pokegb;
+	src: url(fonts/pokemon_font.ttf);
+	}
+ 
 #poke-wrapper {
 	position: relative;
 	/*bottom: 30px;*/
@@ -24,14 +29,17 @@
 	align-content: center;
 }
 
-#poke-header, #poke-name {
+#poke-name {
 	border-bottom: 1px solid white;
 	color: white;
-
+	text-align: center;
+	margin-bottom: 30px;
 }
 
-#poke-name {
+#poke-subname {
 	text-align: center;
+	font-size: 0.6em;
+	margin-top: -20px;
 }
 
 #poke-pic {

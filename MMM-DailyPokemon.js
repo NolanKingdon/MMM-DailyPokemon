@@ -15,6 +15,9 @@ Module.register("MMM-DailyPokemon", {
 		maxPoke: 802,//Highest number - 802 pokemon currently exist
 		showType: true, //Shows type icons below pokemon's image
 		stats: true,
+		language: "en", 
+		genera: true, 
+		gbaMode: true
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -25,6 +28,7 @@ Module.register("MMM-DailyPokemon", {
 		setInterval(function() {
 			self.updateDom();
 		}, this.config.updateInterval);
+		console.log(this.config);
 	},
 
 	getDom: function() { //Creating initial div
@@ -49,12 +53,52 @@ Module.register("MMM-DailyPokemon", {
 		var pokeNumber = Math.round(Math.random()*(this.config.maxPoke - this.config.minPoke) + this.config.minPoke);
 		var apiURL = "https://pokeapi.co/api/v2/pokemon/" + pokeNumber + "/";
 		var httpRequest = new XMLHttpRequest();
+
+		var languageApiURL = "https://pokeapi.co/api/v2/pokemon-species/" + pokeNumber + "/";
+		var languageHttpRequest = new XMLHttpRequest();
+		var translatedName;
+		var languageChosen = this.config.language;
+
+		languageHttpRequest.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				var response = JSON.parse(this.responseText);
+				Log.log(response);
+
+				if(self.config.genera){
+					response.genera.forEach(genera => {
+						if(genera.language.name == languageChosen){
+							var pokeSubName = document.getElementById("poke-subname");
+							pokeSubName.innerHTML = genera.genus
+						}
+					});
+				}
+
+				// Get Translated Name
+				if(languageChosen){
+					response.names.forEach(nameObject => {
+						if(nameObject.language.name == languageChosen){
+							translatedName = nameObject.name;
+							var pokeName = document.getElementById("poke-name");
+							pokeName.innerHTML = translatedName.charAt(0).toUpperCase() + translatedName.slice(1) + " - #" + pokeNumber
+						}
+					});
+				}
+			}
+			 else {
+				 return "Loading...";
+			 }
+
+		}
 		
 		httpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {
 				console.log(JSON.parse(this.responseText));
 				var responsePokemon = JSON.parse(this.responseText);
-				Log.log(responsePokemon.name);
+				Log.log(responsePokemon);
+				languageHttpRequest.open("GET", languageApiURL, true);
+				languageHttpRequest.send();
+				
+
 				self.createContent(responsePokemon, wrapper);
 			} else {
 				return "Loading...";
@@ -73,7 +117,17 @@ Module.register("MMM-DailyPokemon", {
 		//TODO - maybe add an option to get rid of Pokedex #
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
 		pokeName.id = "poke-name";
+		
 		wrapper.appendChild(pokeName);
+
+		if(this.config.genera){
+			var pokeSubName = document.createElement("p");
+			//TODO - maybe add an option to get rid of Pokedex #
+			pokeSubName.id = "poke-subname";
+			if(this.config.gbaMode) pokeSubName.style.cssText = "font-family: 'pokegb'";
+
+			wrapper.appendChild(pokeSubName);
+		}
 		
 		var pokePic = document.createElement("img");
 		pokePic.src = data.sprites.front_default;
@@ -112,21 +166,188 @@ Module.register("MMM-DailyPokemon", {
 		//TODO - Add in a stats table
 		if(this.config.stats){
 			var statTable = document.createElement("table");
+			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'pokegb'";
+
+
+			// We add HP Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
 			for(var i = 0; i<6; i++){
-				var tr = document.createElement("tr");
-				var tdName = document.createElement("td");
-				tdName.innerHTML = data.stats[i].stat.name;
-				tdName.id = "poke-table-name";
-				var tdStat = document.createElement("td");
-				tdStat.innerHTML = data.stats[i].base_stat;
-				tr.appendChild(tdName);
-				tr.appendChild(tdStat);
-				statTable.appendChild(tr);
-				statWrapper.appendChild(statTable);
+				if(data.stats[i].stat.name == "hp"){
+					if(this.config.language == "fr"){
+						tdName.innerHTML = "PV";
+					}
+					else{
+						tdName.innerHTML = "HP";
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
 			}
+
+			// We add Attack Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "attack"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "ATTAQUE";
+						}
+						else{
+							tdName.innerHTML = "ATTACK";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Attaque";
+						}
+						else{
+							tdName.innerHTML = "Attack"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Defense Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "defense"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "DEFENSE";
+						}
+						else{
+							tdName.innerHTML = "DEFENSE";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Défense";
+						}
+						else{
+							tdName.innerHTML = "Defense"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Special Attack Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "special-attack"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "ATQ.SPE.";
+						}
+						else{
+							tdName.innerHTML = "ATK.SPE.";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Attaque Spéciale";
+						}
+						else{
+							tdName.innerHTML = "Special Attack"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Special Defense Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "special-defense"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "DEF.SPE.";
+						}
+						else{
+							tdName.innerHTML = "DEF.SPE.";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Défense Spéciale";
+						}
+						else{
+							tdName.innerHTML = "Special Defense"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			// We add Speed Stat
+			var tr = document.createElement("tr");
+			var tdName = document.createElement("td");
+			var tdStat = document.createElement("td");
+			tdName.id = "poke-table-name";
+			for(var i = 0; i<6; i++){
+				if(data.stats[i].stat.name == "speed"){
+					if(this.config.gbaMode){
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "VITESSE";
+						}
+						else{
+							tdName.innerHTML = "SPEED";
+						}
+					}
+					else{
+						if(this.config.language == "fr"){
+							tdName.innerHTML = "Vitesse";
+						}
+						else{
+							tdName.innerHTML = "Speed"
+						}
+					}
+					tdStat.innerHTML = data.stats[i].base_stat;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStat);
+					statTable.appendChild(tr);
+					break;
+				}
+			}
+
+			statWrapper.appendChild(statTable);
 			flexWrapper.appendChild(statWrapper);
 		}
-		
 		wrapper.appendChild(flexWrapper);
 	},
 	
