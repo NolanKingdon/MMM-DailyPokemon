@@ -70,8 +70,8 @@ var config = {
                 showType: true, //Shows type icons below pokemon's image
                 stats: true,
                 language: "en",
-				genera: true,
-				gbaMode: true         
+		genera: true,
+		gbaMode: true         
             }
         }
     ]
