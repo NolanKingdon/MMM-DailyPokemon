@@ -17,7 +17,8 @@ Module.register("MMM-DailyPokemon", {
 		stats: true,
 		language: "en", 
 		genera: true, 
-		gbaMode: true
+		gbaMode: true, 
+		nameSize: 32
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
@@ -117,6 +118,11 @@ Module.register("MMM-DailyPokemon", {
 		//TODO - maybe add an option to get rid of Pokedex #
 		pokeName.innerHTML = data.name.charAt(0).toUpperCase() + data.name.slice(1) + " - #" + data.id;
 		pokeName.id = "poke-name";
+
+		// Font size modification
+		if(this.config.nameSize != 32) {
+			pokeName.style.cssText = "font-size: " + this.config.nameSize + "px;";
+		}
 		
 		wrapper.appendChild(pokeName);
 
