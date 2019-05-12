@@ -15,9 +15,11 @@
 	}
  
 #poke-wrapper {
-	position: relative;
-	/*bottom: 30px;*/
-	top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	/*position: relative;
+	bottom: 30px;
+	top: 0px;*/
 }
 
 #flex-wrapper div {
