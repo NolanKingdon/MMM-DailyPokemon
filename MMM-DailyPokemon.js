@@ -181,182 +181,18 @@ Module.register("MMM-DailyPokemon", {
 		if(this.config.stats){
 			var statTable = document.createElement("table");
 			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'pokegb'";
+			
+			for(let i=0; i<6; i++){
+				let tr = document.createElement("tr");
+				let tdName = document.createElement("td");
+				let tdStat = document.createElement("td");
 
+				tdName.innerHTML = this.translate(data.stats[i].stat.name);
+				tdStat.innerHTML = data.stats[i].base_stat;
 
-			// We add HP Stat
-			var tr = document.createElement("tr");
-			var tdName = document.createElement("td");
-			var tdStat = document.createElement("td");
-			tdName.id = "poke-table-name";
-			for(var i = 0; i<6; i++){
-				if(data.stats[i].stat.name == "hp"){
-					if(this.config.language == "fr"){
-						tdName.innerHTML = "PV";
-					}
-					else{
-						tdName.innerHTML = "HP";
-					}
-					tdStat.innerHTML = data.stats[i].base_stat;
-					tr.appendChild(tdName);
-					tr.appendChild(tdStat);
-					statTable.appendChild(tr);
-					break;
-				}
-			}
-
-			// We add Attack Stat
-			var tr = document.createElement("tr");
-			var tdName = document.createElement("td");
-			var tdStat = document.createElement("td");
-			tdName.id = "poke-table-name";
-			for(var i = 0; i<6; i++){
-				if(data.stats[i].stat.name == "attack"){
-					if(this.config.gbaMode){
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "ATTAQUE";
-						}
-						else{
-							tdName.innerHTML = "ATTACK";
-						}
-					}
-					else{
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "Attaque";
-						}
-						else{
-							tdName.innerHTML = "Attack"
-						}
-					}
-					tdStat.innerHTML = data.stats[i].base_stat;
-					tr.appendChild(tdName);
-					tr.appendChild(tdStat);
-					statTable.appendChild(tr);
-					break;
-				}
-			}
-
-			// We add Defense Stat
-			var tr = document.createElement("tr");
-			var tdName = document.createElement("td");
-			var tdStat = document.createElement("td");
-			tdName.id = "poke-table-name";
-			for(var i = 0; i<6; i++){
-				if(data.stats[i].stat.name == "defense"){
-					if(this.config.gbaMode){
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "DEFENSE";
-						}
-						else{
-							tdName.innerHTML = "DEFENSE";
-						}
-					}
-					else{
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "Défense";
-						}
-						else{
-							tdName.innerHTML = "Defense"
-						}
-					}
-					tdStat.innerHTML = data.stats[i].base_stat;
-					tr.appendChild(tdName);
-					tr.appendChild(tdStat);
-					statTable.appendChild(tr);
-					break;
-				}
-			}
-
-			// We add Special Attack Stat
-			var tr = document.createElement("tr");
-			var tdName = document.createElement("td");
-			var tdStat = document.createElement("td");
-			tdName.id = "poke-table-name";
-			for(var i = 0; i<6; i++){
-				if(data.stats[i].stat.name == "special-attack"){
-					if(this.config.gbaMode){
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "ATQ.SPE.";
-						}
-						else{
-							tdName.innerHTML = "ATK.SPE.";
-						}
-					}
-					else{
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "Attaque Spéciale";
-						}
-						else{
-							tdName.innerHTML = "Special Attack"
-						}
-					}
-					tdStat.innerHTML = data.stats[i].base_stat;
-					tr.appendChild(tdName);
-					tr.appendChild(tdStat);
-					statTable.appendChild(tr);
-					break;
-				}
-			}
-
-			// We add Special Defense Stat
-			var tr = document.createElement("tr");
-			var tdName = document.createElement("td");
-			var tdStat = document.createElement("td");
-			tdName.id = "poke-table-name";
-			for(var i = 0; i<6; i++){
-				if(data.stats[i].stat.name == "special-defense"){
-					if(this.config.gbaMode){
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "DEF.SPE.";
-						}
-						else{
-							tdName.innerHTML = "DEF.SPE.";
-						}
-					}
-					else{
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "Défense Spéciale";
-						}
-						else{
-							tdName.innerHTML = "Special Defense"
-						}
-					}
-					tdStat.innerHTML = data.stats[i].base_stat;
-					tr.appendChild(tdName);
-					tr.appendChild(tdStat);
-					statTable.appendChild(tr);
-					break;
-				}
-			}
-
-			// We add Speed Stat
-			var tr = document.createElement("tr");
-			var tdName = document.createElement("td");
-			var tdStat = document.createElement("td");
-			tdName.id = "poke-table-name";
-			for(var i = 0; i<6; i++){
-				if(data.stats[i].stat.name == "speed"){
-					if(this.config.gbaMode){
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "VITESSE";
-						}
-						else{
-							tdName.innerHTML = "SPEED";
-						}
-					}
-					else{
-						if(this.config.language == "fr"){
-							tdName.innerHTML = "Vitesse";
-						}
-						else{
-							tdName.innerHTML = "Speed"
-						}
-					}
-					tdStat.innerHTML = data.stats[i].base_stat;
-					tr.appendChild(tdName);
-					tr.appendChild(tdStat);
-					statTable.appendChild(tr);
-					break;
-				}
+				tr.appendChild(tdName);
+				tr.appendChild(tdStat);
+				statTable.appendChild(tr);
 			}
 
 			statWrapper.appendChild(statTable);
@@ -368,4 +204,11 @@ Module.register("MMM-DailyPokemon", {
 	getStyles: function() {
 		return [this.file('MMM-DailyPokemon.css')]
 	},
+
+	getTranslations: function() {
+		return {
+			en: "translations/en.json",
+			fr: "translations/fr.json"
+		}
+	}
 });

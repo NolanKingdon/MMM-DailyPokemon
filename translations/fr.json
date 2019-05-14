@@ -2,11 +2,11 @@
   "TITLE": "Title",
   "UPDATE": "Update",
 //Keys for stats are based on what the API returns
-  "hp": "HP",
-  "attack": "ATTACK",
+  "hp": "PV",
+  "attack": "ATTAQUE",
   "defense": "DEFENSE",
-  "special-attack": "ATK.SPE.",
+  "special-attack": "ATQ.SPE.",
   "special-defense": "DEF.SPE.",
-  "speed": "SPEED"
+  "speed": "VITESSE"
   
 }
