@@ -2,7 +2,7 @@
  *
  * MMM-DailyPokemon
  *
- * 
+ *
  * MIT Licensed.
  *
  * Custom here your css module
@@ -13,7 +13,7 @@
 	font-family: pokegb;
 	src: url(fonts/pokemon_font.ttf);
 	}
- 
+
 #poke-wrapper {
 	margin-left: auto;
 	margin-right: auto;
@@ -24,6 +24,7 @@
 
 #flex-wrapper div {
 	width: 100%;
+	height: 175px;
 }
 
 #flex-wrapper {
@@ -69,7 +70,7 @@
 	padding: 0px;
 }
 
-#poke-types p{
+#poke-types span {
 	text-decoration: none;
 	display: inline-block;
 	margin-right: 3px;

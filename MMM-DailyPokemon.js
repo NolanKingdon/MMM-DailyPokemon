@@ -84,16 +84,19 @@ Module.register("MMM-DailyPokemon", {
 						}
 					});
 
-					function checkLanguage(obj) {
-						return obj.language.name == languageChosen
-					}
-
-					var flavorTextObj = response.flavor_text_entries.find(checkLanguage);
-
-
 					var flavorTextDisplay = document.getElementById("flavor-text");
-					flavorTextDisplay.innerHTML = flavorTextObj.flavor_text
-					console.log("flavorTextDisplay", flavorTextDisplay)
+
+					if (flavorTextDisplay) {
+						function checkLanguage(obj) {
+							return obj.language.name == languageChosen
+						}
+						// get first flavor text matching selected language
+						var flavorTextObj = response.flavor_text_entries.find(checkLanguage);
+						// remove carriage returns, newlines, form-feeds for clean display
+						var sanitizedText = flavorTextObj.flavor_text.replace(/\r\n\f/g, "")
+
+						flavorTextDisplay.innerHTML = sanitizedText
+					}
 				}
 			}
 			 else {
@@ -165,7 +168,7 @@ Module.register("MMM-DailyPokemon", {
 
 		var types = document.createElement("div");
 		types.id = "poke-types";
-		var type1 = document.createElement("p");
+		var type1 = document.createElement("span");
 		var type1Img = document.createElement("img");
 		type1Img.src = "https://serebii.net/pokedex-dp/type/" + data.types[0].type.name + ".gif"
 		if(this.config.grayscale){
@@ -175,7 +178,7 @@ Module.register("MMM-DailyPokemon", {
 		//type1.innerHTML = data.types[0].type.name.charAt(0).toUpperCase() + data.types[0].type.name.slice(1);
 		types.appendChild(type1);
 		if(data.types[1]){
-			var type2 = document.createElement("p");
+			var type2 = document.createElement("span");
 			var type2Img = document.createElement("img");
 			if(this.config.grayscale){
 				type2Img.id = "poke-pic-grayscale-type"
@@ -213,11 +216,13 @@ Module.register("MMM-DailyPokemon", {
 		wrapper.appendChild(flexWrapper);
 
 		if (this.config.flavorText) {
+			var flavorTextWrapper = document.createElement("div");
+			flavorTextWrapper.id = "flavor-text-wrapper";
+
 			var flavorText = document.createElement("p");
-			flavorText.innerHTML = data.flavorTextDisplay;
+			flavorText.innerHTML = data.flavorTextDisplay ? data.flavorTextDisplay : "";
 			flavorText.id = "flavor-text";
 
-			flavorText.style.cssText = "margin-top: -115px";
 			flavorText.style.fontSize = "24px";
 			flavorText.style.lineHeight = "1.5";
 			if (this.config.gbaMode) {
@@ -225,7 +230,8 @@ Module.register("MMM-DailyPokemon", {
 				flavorText.style.fontSize = "18px";
 			}
 
-			wrapper.appendChild(flavorText);
+			flavorTextWrapper.appendChild(flavorText);
+			wrapper.appendChild(flavorTextWrapper);
 		}
 	},
 
