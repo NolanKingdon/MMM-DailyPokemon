@@ -93,7 +93,8 @@ Module.register("MMM-DailyPokemon", {
 						// get first flavor text matching selected language
 						var flavorTextObj = response.flavor_text_entries.find(checkLanguage);
 						// remove carriage returns, newlines, form-feeds for clean display
-						var sanitizedText = flavorTextObj.flavor_text.replace(/\r\n\f/g, "")
+						var sanitizedText = flavorTextObj.flavor_text.replace(/\r\n/g, "")
+						sanitizedText = sanitizedText.replace(/\f/g, " ")
 
 						flavorTextDisplay.innerHTML = sanitizedText
 					}

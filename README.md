@@ -76,7 +76,7 @@ var config = {
                 language: "en",
                 genera: true,
                 gbaMode: true,
-                nameSize: 32
+                nameSize: 32,
                 flavorText: false // Whether to display flavor text for pokemon
             }
         }
