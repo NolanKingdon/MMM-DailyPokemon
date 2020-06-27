@@ -3,7 +3,7 @@
 /* Magic Mirror
  * Module: MMM-DailyPokemon
  *
- * By 
+ * By
  * MIT Licensed.
  */
 
@@ -15,17 +15,18 @@ Module.register("MMM-DailyPokemon", {
 		maxPoke: 802,//Highest number - 802 pokemon currently exist
 		showType: true, //Shows type icons below pokemon's image
 		stats: true,  //Displays pokemon stat table
-		language: "en", 
+		language: "en",
 		genera: true,  //Sub-description for the pokemon
-		gbaMode: true, //Changes font to GBA style 
-		nameSize: 32 //Changes header size - px
+		gbaMode: true, //Changes font to GBA style
+		nameSize: 32, //Changes header size - px
+		flavorText: false,  //Displays flavor text for the pokemon
 	},
 
 	requiresVersion: "2.1.0", // Required version of MagicMirror
 
 	start: function() { //Setting up interval for refresh
 		var self = this;
-		
+
 		setInterval(function() {
 			self.updateDom();
 		}, this.config.updateInterval);
@@ -42,12 +43,12 @@ Module.register("MMM-DailyPokemon", {
 		var header = document.createElement("h4");
 		header.innerHTML = "Daily Pokemon";
 		header.id = "poke-header";
-		
+
 		//wrapper.appendChild(header);
 		this.getData(wrapper);//Sending the request
 		return wrapper;
 	},
-	
+
 	getData: function(wrapper) { //Sends XHTTPRequest
 		var self = this;
 		var pokeNumber = Math.round(Math.random()*(this.config.maxPoke - this.config.minPoke) + this.config.minPoke);
@@ -73,7 +74,7 @@ Module.register("MMM-DailyPokemon", {
 					});
 				}
 
-				// Get Translated Name
+				// Get Translated Name and Flavor Text
 				if(languageChosen){
 					response.names.forEach(nameObject => {
 						if(nameObject.language.name == languageChosen){
@@ -82,6 +83,17 @@ Module.register("MMM-DailyPokemon", {
 							pokeName.innerHTML = translatedName.charAt(0).toUpperCase() + translatedName.slice(1) + " - #" + pokeNumber
 						}
 					});
+
+					function checkLanguage(obj) {
+						return obj.language.name == languageChosen
+					}
+
+					var flavorTextObj = response.flavor_text_entries.find(checkLanguage);
+
+
+					var flavorTextDisplay = document.getElementById("flavor-text");
+					flavorTextDisplay.innerHTML = flavorTextObj.flavor_text
+					console.log("flavorTextDisplay", flavorTextDisplay)
 				}
 			}
 			 else {
@@ -89,7 +101,7 @@ Module.register("MMM-DailyPokemon", {
 			 }
 
 		}
-		
+
 		httpRequest.onreadystatechange = function() {
 			if(this.readyState == 4 && this.status == 200) {
 				console.log(JSON.parse(this.responseText));
@@ -97,7 +109,7 @@ Module.register("MMM-DailyPokemon", {
 				Log.log(responsePokemon);
 				languageHttpRequest.open("GET", languageApiURL, true);
 				languageHttpRequest.send();
-				
+
 
 				self.createContent(responsePokemon, wrapper);
 			} else {
@@ -107,7 +119,7 @@ Module.register("MMM-DailyPokemon", {
 		httpRequest.open("GET", apiURL, true);
 		httpRequest.send();
 	},
-	
+
 	createContent: function(data, wrapper) { //Creates the elements for display
 		var pokeWrapper = document.createElement("div");
 		pokeWrapper.id = "poke-info";
@@ -132,7 +144,7 @@ Module.register("MMM-DailyPokemon", {
 				pokeName.style.cssText = "font-size: 22px; font-family: 'pokegb';";
 			}
 		}
-		
+
 		wrapper.appendChild(pokeName);
 
 		if(this.config.genera){
@@ -142,15 +154,15 @@ Module.register("MMM-DailyPokemon", {
 			if(this.config.gbaMode) pokeSubName.style.cssText = "font-family: 'pokegb'";
 			wrapper.appendChild(pokeSubName);
 		}
-		
+
 		var pokePic = document.createElement("img");
 		pokePic.src = data.sprites.front_default;
 		pokePic.id = "poke-pic";
-		if(this.config.grayscale) { 
-			pokePic.id = "poke-pic-grayscale"; 
+		if(this.config.grayscale) {
+			pokePic.id = "poke-pic-grayscale";
 		}
 		pokeWrapper.appendChild(pokePic);
-		
+
 		var types = document.createElement("div");
 		types.id = "poke-types";
 		var type1 = document.createElement("p");
@@ -175,13 +187,13 @@ Module.register("MMM-DailyPokemon", {
 		}
 		pokeWrapper.appendChild(types);
 		flexWrapper.appendChild(pokeWrapper);
-		
+
 		statWrapper = document.createElement("div");
 		//TODO - Add in a stats table
 		if(this.config.stats){
 			var statTable = document.createElement("table");
 			if(this.config.gbaMode) statTable.style.cssText = "font-family: 'pokegb'";
-			
+
 			for(let i=5; i>=0; i--){//Inverted to list stats in right order
 				let tr = document.createElement("tr");
 				let tdName = document.createElement("td");
@@ -199,8 +211,24 @@ Module.register("MMM-DailyPokemon", {
 			flexWrapper.appendChild(statWrapper);
 		}
 		wrapper.appendChild(flexWrapper);
+
+		if (this.config.flavorText) {
+			var flavorText = document.createElement("p");
+			flavorText.innerHTML = data.flavorTextDisplay;
+			flavorText.id = "flavor-text";
+
+			flavorText.style.cssText = "margin-top: -115px";
+			flavorText.style.fontSize = "24px";
+			flavorText.style.lineHeight = "1.5";
+			if (this.config.gbaMode) {
+				flavorText.style.fontFamily = "'pokegb'";
+				flavorText.style.fontSize = "18px";
+			}
+
+			wrapper.appendChild(flavorText);
+		}
 	},
-	
+
 	getStyles: function() {
 		return [this.file('MMM-DailyPokemon.css')]
 	},
