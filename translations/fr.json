@@ -1,7 +1,6 @@
 {
   "TITLE": "Title",
   "UPDATE": "Update",
-//Keys for stats are based on what the API returns
   "hp": "PV",
   "attack": "ATTAQUE",
   "defense": "DEFENSE",
