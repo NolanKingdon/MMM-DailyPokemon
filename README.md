@@ -31,9 +31,10 @@ var config = {
                 grayscale: true,
                 showType: true,
                 language: "en",
-                genera: true, 
-                gbaMode: true,            
-                nameSize: 26            
+                genera: true,
+                gbaMode: true,
+                nameSize: 26,
+                flavorText: false
             }
         }
     ]
@@ -53,8 +54,9 @@ var config = {
 | `stats`          | *Optional* Displays Pokemon stats
 | `language`       | *Optional* Change Pokemon name. <br><br>**Languages supported** <br/><br/> `zh-Hans` -  <br> `ja` - Japanese <br> `en` - English (default) <br> `it` - Italian <br> `es` - Spanish <br> `de` - Deutsch <br> `fr` - French <br>`zh-Hant` - Chinese <br>`ko` - Korean <br>`roomaji` - Japanese (In Roomaji, latin alphabet) <br>`ja-Hrkt` - Czech <br/> <br/>
 | `genera`          | *Optional* Displays the genera (One or two words to describe the Pokemon) from the official Pokedex
-| `gbaMode`         | *Optional* Displays text like in GBA Pokedex (Old-school font and old labels). 
+| `gbaMode`         | *Optional* Displays text like in GBA Pokedex (Old-school font and old labels).
 | `nameSize`        | *Optional* Set title size (Name of the Pokemon), in pixels. 32 By default.
+| `flavorText`        | *Optional* Displays the flavor text (short description of the pokemon) from the official Pokedex. When more than one version is returned, picks first one matching the selected language
 
 ## Default Configuration
 
@@ -73,9 +75,9 @@ var config = {
                 stats: true,
                 language: "en",
                 genera: true,
-                gbaMode: true, 
-                nameSize: 32         
-
+                gbaMode: true,
+                nameSize: 32,
+                flavorText: false // Whether to display flavor text for pokemon
             }
         }
     ]
