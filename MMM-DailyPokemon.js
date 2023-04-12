@@ -173,8 +173,10 @@ Module.register("MMM-DailyPokemon", {
 		var type1Img = document.createElement("img");
 		type1Img.src = "https://serebii.net/pokedex-dp/type/" + data.types[0].type.name + ".gif"
 		if(this.config.grayscale){
-				type1Img.id = "poke-pic-grayscale-type"
-			}
+			type1Img.id = "poke-pic-grayscale-type"
+		} else {
+			type1Img.id = "poke-pic-type"
+		}
 		type1.appendChild(type1Img);
 		//type1.innerHTML = data.types[0].type.name.charAt(0).toUpperCase() + data.types[0].type.name.slice(1);
 		types.appendChild(type1);
@@ -183,6 +185,8 @@ Module.register("MMM-DailyPokemon", {
 			var type2Img = document.createElement("img");
 			if(this.config.grayscale){
 				type2Img.id = "poke-pic-grayscale-type"
+			} else {
+				type2Img.id = "poke-pic-type"
 			}
 			type2Img.src = "https://serebii.net/pokedex-dp/type/" + data.types[1].type.name + ".gif"
 			//type2.innerHTML = data.types[1].type.name.charAt(0).toUpperCase() + data.types[1].type.name.slice(1)

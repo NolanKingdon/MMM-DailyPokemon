@@ -52,6 +52,13 @@
 	height: auto;
 }
 
+#poke-pic-type {
+	position: relative;
+	bottom: 100px;
+	width: 50px;
+	height: auto;
+}
+
 #poke-pic-grayscale {
 	position: relative;
 	bottom: 50px;
