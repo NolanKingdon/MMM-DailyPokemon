@@ -46,7 +46,16 @@
 }
 
 #poke-pic {
-	width: 100px;
+	position: relative;
+	bottom: 50px;
+	width: 200px;
+	height: auto;
+}
+
+#poke-pic-type {
+	position: relative;
+	bottom: 100px;
+	width: 50px;
 	height: auto;
 }
 
